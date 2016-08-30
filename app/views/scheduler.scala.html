@@ -1,0 +1,72 @@
+@(data: play.api.libs.json.JsValue)
+@import play.api.libs.json.Json
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>JobScheduler</title>
+    
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/scheduler.css")">
+		
+	<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.11.0.min.js")"></script>
+	<script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>		
+	<script type="text/javascript" src="@routes.Assets.at("javascripts/scheduler.js")"></script>
+</head>
+<body>
+
+	<h2>Scala Mail Scheduler Application </h2>
+	<div class="form-group">
+		<label class="control-label col-sm-2">From :</label>
+		<input type="email" name="from_email" id="from_email" required><br> 
+	</div>
+	<div class="form-group">	
+		<label class="control-label col-sm-2">Password :</label>
+		<input type="password" name="password" id="password" required><br> 
+	</div>
+	<div class="form-group">	
+		<label class="control-label col-sm-2">Subject :</label>
+		<input type="text" name="subject" id="subject" required><br> 
+	</div>
+	<div class="form-group">	
+		<label class="control-label col-sm-2">To :</label>
+		<input type="email" name="to_email" id="to_email" required><br> 
+	</div>
+	<div class="form-group">	
+		<label class="control-label col-sm-2">Message :</label>
+		<textarea rows="4" cols="30" name="message" id="message" required></textarea><br>  		 		
+  	</div>  
+  	<div id="div1"></div>	
+  	 <div class="form-group">
+        <label class="control-label col-sm-2">Submit :</label>
+        <input type="submit" value="Submit" id="submit" onclick="MailSchedulers()"><br/>
+     </div> 
+</body>
+
+<script type="text/javascript">
+	
+	var data = @Html(Json.stringify(Json.toJson(data)));		
+	for(var i=0; i<data.length; i++){
+		var form = ('<div class="form-group">');
+		var label = ('<label class="control-name col-sm-2">'+data[i].name+" :"+'</label>');
+		var select = ('<select class="selectpicker" name='+data[i].name+' id='+data[i].name+'>');
+		var specialValue = "";
+		for(var j=0; j<data[i].specialValue.length; j++){
+			specialValue += ('<option>'+data[i].specialValue[j]+'</option>');
+		}
+		var range = "";
+		for(var k=data[i].range[0]; k<=data[i].range[1]; k++){
+			range += ('<option>'+k+'</option>');
+		}
+		var end = ('</select></div>');		
+		var all = $(form + label + select + specialValue + range + end);
+		 $('#div1').append(all);
+	}
+	
+		
+</script>
+</html>

@@ -1,0 +1,8 @@
+#from_email, #to_email, #message, #subject, #password{
+	width: 300px;
+	
+}
+#hour, #minute, #second, #year, #day, #month, #week, #submit{
+	width: 300px;
+	height: 28px;
+}
